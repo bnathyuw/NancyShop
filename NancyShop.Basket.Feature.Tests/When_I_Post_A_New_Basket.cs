@@ -25,5 +25,21 @@ namespace NancyShop.Basket.Feature.Tests
 		{
 			Assert.That(_response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
 		}
+
+		[Test]
+		public void Then_I_Receive_The_Location_Of_The_New_Basket()
+		{
+			Assert.That(_response.Headers["Location"], Is.StringMatching(@"/baskets/\d*"));
+		}
+
+		[Test]
+		public void Then_The_Basket_At_The_Created_Location_Exists()
+		{
+			var location = _response.Headers["Location"];
+
+			var newBasketResponse = Context.Browser.Get(location, with => with.Accept("application/vnd.nancyshop+json"));
+
+			Assert.That(newBasketResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+		}
 	}
 }
