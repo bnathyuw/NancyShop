@@ -6,15 +6,15 @@ using Nancy.Testing;
 namespace NancyShop.Basket.Feature.Tests
 {
 	[SetUpFixture]
-	public class Context
+	public class Given_A_Browser
 	{
 		static INancyBootstrapper Bootstrapper { get; set; }
-		public static Browser Browser { get; set; }
+		public static Browser Browser { get; private set; }
 
 		[SetUp]
 		public void SetUp()
 		{
-			var basketsModule = new BasketsModule();
+			var basketsModule = new BasketModule();
 			Bootstrapper = new DefaultNancyBootstrapper();
 			Browser = new Browser(Bootstrapper);
 		}

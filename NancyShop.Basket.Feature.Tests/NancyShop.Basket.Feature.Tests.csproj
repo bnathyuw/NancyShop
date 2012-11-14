@@ -53,8 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="When_I_Post_A_New_Basket.cs" />
-    <Compile Include="Context.cs" />
+    <Compile Include="WhenIPostANewBasket\AndIGetTheNewBasket\And_I_Get_The_New_Basket.cs" />
+    <Compile Include="WhenIPostANewBasket\AndIGetTheNewBasket\Then.cs" />
+    <Compile Include="WhenIPostANewBasket\Then.cs" />
+    <Compile Include="WhenIPostANewBasket\When_I_Post_A_New_Basket.cs" />
+    <Compile Include="Given_A_Browser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
