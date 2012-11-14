@@ -21,7 +21,7 @@ namespace NancyShop.Basket.Feature.Tests
 		}
 
 		[Test]
-		public void I_Receive_A_Created_Code()
+		public void Then_I_Receive_A_Created_Code()
 		{
 			Assert.That(_response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
 		}
