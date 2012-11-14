@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Nancy;
 using Nancy.Testing;
 
-namespace NancyShop.Basket.Feature.Tests
+namespace NancyShop.Basket.Feature.Tests.Given_Nothing
 {
 	[TestFixture]
 	public class When_I_Post_A_New_Basket
@@ -13,12 +13,12 @@ namespace NancyShop.Basket.Feature.Tests
 		[TestFixtureSetUp]
 		public void SetUp()
 		{
-			_response = Given_A_Browser.Browser.Post("/baskets", with =>
+			_response = Context.Browser.Post("/baskets", with =>
 			{
 				var basket = new Basket {Items = new List<BasketItem> {new BasketItem {ProductCode = "abc123"}}};
 				with.JsonBody(basket);
-				with.Header("Content-Type", "application/vnd.nancyshop+json");
-				with.Accept("application/vnd.nancyshop+json");
+				with.Header("Content-Type", Context.NancyShopBasketJsonContentType);
+				with.Accept(Context.NancyShopBasketJsonContentType);
 			});
 		}
 
@@ -29,7 +29,7 @@ namespace NancyShop.Basket.Feature.Tests
 		}
 
 		[Test]
-		public void Then_I_Receive_The_Location_Of_The_New_Basket()
+		public void Then_I_Receive_Its_Location()
 		{
 			Assert.That(_response.Headers["Location"], Is.StringMatching(@"/baskets/\d*"));
 		}

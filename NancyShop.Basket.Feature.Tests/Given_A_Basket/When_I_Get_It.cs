@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Nancy;
 using Nancy.Testing;
 
-namespace NancyShop.Basket.Feature.Tests.And_A_Basket
+namespace NancyShop.Basket.Feature.Tests.Given_A_Basket
 {
 	[TestFixture]
-	public class Given_A_Basket_When_I_Get_It
+	public class When_I_Get_It
 	{
 		private const string ProductCode = "abc123";
 		private BrowserResponse _response;
@@ -16,26 +16,26 @@ namespace NancyShop.Basket.Feature.Tests.And_A_Basket
 		[SetUp]
 		public void SetUp()
 		{
-			var response = Given_A_Browser.Browser.Post("/baskets", with =>
+			var response = Context.Browser.Post("/baskets", with =>
 			{
 				with.JsonBody(_basket);
-				with.Header("Content-Type", "application/vnd.nancyshop+json");
-				with.Accept("application/vnd.nancyshop+json");
+				with.Header("Content-Type", Context.NancyShopBasketJsonContentType);
+				with.Accept(Context.NancyShopBasketJsonContentType);
 			});
 
 			var location = response.Headers["Location"]; 
 
-			_response = Given_A_Browser.Browser.Get(location, with => with.Accept("application/vnd.nancyshop+json"));
+			_response = Context.Browser.Get(location, with => with.Accept(Context.NancyShopBasketJsonContentType));
 		}
 
 		[Test]
-		public void Then_It_Exists()
+		public void Then_I_Receive_An_Ok_Code()
 		{
 			Assert.That(_response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
 		}
 
 		[Test]
-		public void Then_It_Contains_The_Correct_Data()
+		public void Then_I_Receive_A_Faithful_Representation_Of_It()
 		{
 			var basket = _response.Body.DeserializeJson<Basket>();
 			Assert.That(basket, Is.Not.Null, "basket");
