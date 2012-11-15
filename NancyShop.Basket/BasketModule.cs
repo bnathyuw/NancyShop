@@ -6,9 +6,9 @@ namespace NancyShop.Basket
 {
 	public class BasketModule:NancyModule
 	{
-		public BasketModule() : base("/baskets")
+		public BasketModule()
 		{
-			Post["/"] = parameters =>
+			Post["/baskets"] = parameters =>
 				            {
 					            var basket = this.Bind<Basket>();
 					            BasketStore.Add(basket);
@@ -19,7 +19,7 @@ namespace NancyShop.Basket
 						                   };
 				            };
 
-			Get[@"/(?<Id>\d*)"] = parameters =>
+			Get[@"/baskets/(?<Id>\d*)"] = parameters =>
 				                      {
 					                      var basket = BasketStore.Get(parameters.Id);
 					                      return basket;
