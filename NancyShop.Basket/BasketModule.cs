@@ -37,7 +37,8 @@ namespace NancyShop.Basket
 			basketResource.Id = basket.Id;
 			foreach (var basketItemResource in basketResource.Items)
 			{
-				var basketItem = basketItemResource.ToBasketItem(basket.Id);
+				basketItemResource.BasketId = basket.Id;
+				var basketItem = basketItemResource.ToBasketItem();
 				_basketItemStore.Add(basketItem);
 			}
 			return new Response

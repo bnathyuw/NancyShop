@@ -1,4 +1,6 @@
-﻿using Nancy;
+﻿using System.Collections.Generic;
+using Nancy;
+using Nancy.ModelBinding;
 
 namespace NancyShop.Basket
 {
@@ -11,7 +13,13 @@ namespace NancyShop.Basket
 
 		private dynamic PostBasketItem(dynamic arg)
 		{
-			return HttpStatusCode.Created;
+			var basketId = arg.BasketId;
+			var basketItemResource = this.Bind<BasketItemResource>();
+			return new Response
+				       {
+					       StatusCode = HttpStatusCode.Created,
+						   Headers = new Dictionary<string, string>{{"Location", basketItemResource.Url()}}
+				       };
 		}
 	}
 }

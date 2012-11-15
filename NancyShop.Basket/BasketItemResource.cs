@@ -5,14 +5,15 @@ namespace NancyShop.Basket
 	public class BasketItemResource
 	{
 		public int Id { get; set; }
+		public int BasketId { get; set; }
 		public string ProductCode { get; set; }
 
-		public BasketItem ToBasketItem(int basketId)
+		public BasketItem ToBasketItem()
 		{
 			return new BasketItem
 				       {
 						   Id = Id,
-						   BasketId = basketId, 
+						   BasketId = BasketId, 
 						   ProductCode = ProductCode
 				       };
 		}
@@ -22,8 +23,14 @@ namespace NancyShop.Basket
 			return new BasketItemResource
 				       {
 					       Id = basketItem.Id,
+						   BasketId = basketItem.BasketId,
 						   ProductCode = basketItem.ProductCode
 				       };
+		}
+
+		public string Url()
+		{
+			return "/baskets/" + BasketId + "/items/" + Id;
 		}
 	}
 }

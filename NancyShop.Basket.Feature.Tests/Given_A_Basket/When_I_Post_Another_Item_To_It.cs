@@ -31,5 +31,11 @@ namespace NancyShop.Basket.Feature.Tests.Given_A_Basket
 		{
 			Assert.That(_response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
 		}
+
+		[Test]
+		public void Then_I_Receive_Its_Location()
+		{
+			Assert.That(_response.Headers["Location"], Is.StringMatching(_basketLocation + @"/items/\d+"));
+		}
 	}
 }
