@@ -36,5 +36,11 @@ namespace NancyShop.Basket.Feature.Tests.Given_A_Basket
 			Assert.That(basket.Items.Count(), Is.EqualTo(_basketResource.Items.Count()), "BasketResource.Items.Count()");
 			Assert.That(basket.Items.First().ProductCode, Is.EqualTo(ProductCode), "BasketResource.Items.First().ProductCode");
 		}
+
+		[Test]
+		public void Then_I_Receive_A_Link_To_The_Item_In_It()
+		{
+			_response.AssertLinkValue("basketitem", _location + @"/items/[1-9][0-9]*");
+		}
 	}
 }

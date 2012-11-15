@@ -27,10 +27,5 @@ namespace NancyShop.Basket
 						   ProductCode = basketItem.ProductCode
 				       };
 		}
-
-		public string Url()
-		{
-			return "/baskets/" + BasketId + "/items/" + Id;
-		}
 	}
 }

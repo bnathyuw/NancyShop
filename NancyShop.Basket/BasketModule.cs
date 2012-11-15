@@ -24,7 +24,13 @@ namespace NancyShop.Basket
 					                                   .WithHeader("Location", basketResource.Url());
 				                   };
 
-			Get[@"/baskets/(?<Id>\d*)"] = parameters => GetBasket(parameters.Id);
+			Get[@"/baskets/(?<Id>\d*)"] = parameters =>
+				                              {
+					                              BasketResource basket = GetBasket(parameters.Id);
+					                              return Negotiate.WithModel(basket)
+					                                              .WithStatusCode(HttpStatusCode.OK)
+					                                              .WithHeader("Links", string.Join(",", basket.Items.Select(bi => bi.Url() + "; rel=basketitem")));
+				                              };
 		}
 
 		private BasketResource GetBasket(int basketId)

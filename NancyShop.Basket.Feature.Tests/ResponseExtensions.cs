@@ -23,7 +23,7 @@ namespace NancyShop.Basket.Feature.Tests
 			Assert.That(links.Count(), Is.AtLeast(1), rel + " links.Count()");
 			var basketLink = links.SingleOrDefault(l => l.Rel == rel);
 			Assert.That(basketLink != null, rel + "link != null");
-			Assert.That(basketLink.Url, Is.EqualTo(expectedUrl), rel + "link.Url");
+			Assert.That(basketLink.Url, Is.StringMatching(expectedUrl), rel + "link.Url");
 		}
 
 		public static void AssertLocation(this BrowserResponse response, string expectedPattern)
