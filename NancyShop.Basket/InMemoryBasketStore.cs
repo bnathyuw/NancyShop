@@ -3,7 +3,13 @@ using System.Linq;
 
 namespace NancyShop.Basket
 {
-	public class BasketStore
+	public interface IBasketStore
+	{
+		Basket Get(int basketId);
+		void Add(Basket basket);
+	}
+
+	public class InMemoryBasketStore : IBasketStore
 	{
 		private static readonly IList<Basket> Baskets = new List<Basket>();
 

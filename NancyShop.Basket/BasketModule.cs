@@ -6,12 +6,12 @@ namespace NancyShop.Basket
 {
 	public class BasketModule:NancyModule
 	{
-		private readonly BasketStore _basketStore;
+		private readonly IBasketStore _basketStore;
 
-		public BasketModule()
+		public BasketModule(IBasketStore basketStore)
 		{
-			_basketStore = new BasketStore();
-			
+			_basketStore = basketStore;
+
 			Post["/baskets"] = PostBasket;
 
 			Get[@"/baskets/(?<Id>\d*)"] = GetBasket;

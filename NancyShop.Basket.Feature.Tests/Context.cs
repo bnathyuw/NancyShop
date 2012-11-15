@@ -14,7 +14,6 @@ namespace NancyShop.Basket.Feature.Tests
 		[SetUp]
 		public void SetUp()
 		{
-			var basketsModule = new BasketModule();
 			Bootstrapper = new DefaultNancyBootstrapper();
 			Browser = new Browser(Bootstrapper);
 		}
