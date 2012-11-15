@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NancyShop.Basket.Feature.Tests")]
+[assembly: AssemblyTitle("NancyShop.Basket.Domain")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("NancyShop.BasketResource.Feature.Tests")]
+[assembly: AssemblyProduct("NancyShop.Basket.Domain")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8292326d-6621-4b8d-990e-45bd6437d63a")]
+[assembly: Guid("d568c3c8-99ee-4c9a-a7a5-d120ad393600")]
 
 // Version information for an assembly consists of the following four values:
 //

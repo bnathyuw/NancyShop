@@ -19,5 +19,6 @@ namespace NancyShop.Basket.Feature.Tests
 		}
 
 		public const string NancyShopBasketJsonContentType = "application/vnd.nancyshop.basket+json";
+		public const string NancyShopBasketItemJsonContentType = "application/vnd.nancyshop.basketitem+json";
 	}
 }

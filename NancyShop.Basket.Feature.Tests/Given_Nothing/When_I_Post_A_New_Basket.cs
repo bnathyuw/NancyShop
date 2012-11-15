@@ -13,7 +13,7 @@ namespace NancyShop.Basket.Feature.Tests.Given_Nothing
 		[TestFixtureSetUp]
 		public void SetUp()
 		{
-			var basket = new Basket {Items = new List<BasketItem> {new BasketItem {ProductCode = "abc123"}}};
+			var basket = new BasketResource {Items = new List<BasketItemResource> {new BasketItemResource {ProductCode = "abc123"}}};
 			_response = BasketFacade.Post_Basket(basket);
 		}
 

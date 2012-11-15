@@ -1,14 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace NancyShop.Basket
+namespace NancyShop.Basket.Domain
 {
-	public interface IBasketStore
-	{
-		Basket Get(int basketId);
-		void Add(Basket basket);
-	}
-
 	public class InMemoryBasketStore : IBasketStore
 	{
 		private static readonly IList<Basket> Baskets = new List<Basket>();

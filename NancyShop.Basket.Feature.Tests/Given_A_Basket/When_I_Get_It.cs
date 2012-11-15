@@ -11,12 +11,12 @@ namespace NancyShop.Basket.Feature.Tests.Given_A_Basket
 	{
 		private const string ProductCode = "abc123";
 		private BrowserResponse _response;
-		private readonly Basket _basket = new Basket {Items = new List<BasketItem> {new BasketItem {ProductCode = ProductCode}}};
+		private readonly BasketResource _basketResource = new BasketResource {Items = new List<BasketItemResource> {new BasketItemResource {ProductCode = ProductCode}}};
 
 		[SetUp]
 		public void SetUp()
 		{
-			var location = BasketFacade.Post_Basket(_basket).GetLocation();
+			var location = BasketFacade.Post_Basket(_basketResource).GetLocation();
 
 			_response = Context.Browser.Get(location, with => with.Accept(Context.NancyShopBasketJsonContentType));
 		}
@@ -30,10 +30,10 @@ namespace NancyShop.Basket.Feature.Tests.Given_A_Basket
 		[Test]
 		public void Then_I_Receive_A_Faithful_Representation_Of_It()
 		{
-			var basket = _response.Body.DeserializeJson<Basket>();
-			Assert.That(basket, Is.Not.Null, "basket");
-			Assert.That(basket.Items.Count(), Is.EqualTo(_basket.Items.Count()), "basket.Items.Count()");
-			Assert.That(basket.Items.First().ProductCode, Is.EqualTo(ProductCode), "basket.Items.First().ProductCode");
+			var basket = _response.Body.DeserializeJson<BasketResource>();
+			Assert.That(basket, Is.Not.Null, "BasketResource");
+			Assert.That(basket.Items.Count(), Is.EqualTo(_basketResource.Items.Count()), "BasketResource.Items.Count()");
+			Assert.That(basket.Items.First().ProductCode, Is.EqualTo(ProductCode), "BasketResource.Items.First().ProductCode");
 		}
 	}
 }
