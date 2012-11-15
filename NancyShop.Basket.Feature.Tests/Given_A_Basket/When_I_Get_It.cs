@@ -16,14 +16,7 @@ namespace NancyShop.Basket.Feature.Tests.Given_A_Basket
 		[SetUp]
 		public void SetUp()
 		{
-			var response = Context.Browser.Post("/baskets", with =>
-			{
-				with.JsonBody(_basket);
-				with.Header("Content-Type", Context.NancyShopBasketJsonContentType);
-				with.Accept(Context.NancyShopBasketJsonContentType);
-			});
-
-			var location = response.Headers["Location"]; 
+			var location = BasketFacade.Post_Basket(_basket).GetLocation();
 
 			_response = Context.Browser.Get(location, with => with.Accept(Context.NancyShopBasketJsonContentType));
 		}

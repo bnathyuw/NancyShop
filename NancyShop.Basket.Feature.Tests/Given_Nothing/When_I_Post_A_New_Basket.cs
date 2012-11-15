@@ -13,13 +13,8 @@ namespace NancyShop.Basket.Feature.Tests.Given_Nothing
 		[TestFixtureSetUp]
 		public void SetUp()
 		{
-			_response = Context.Browser.Post("/baskets", with =>
-			{
-				var basket = new Basket {Items = new List<BasketItem> {new BasketItem {ProductCode = "abc123"}}};
-				with.JsonBody(basket);
-				with.Header("Content-Type", Context.NancyShopBasketJsonContentType);
-				with.Accept(Context.NancyShopBasketJsonContentType);
-			});
+			var basket = new Basket {Items = new List<BasketItem> {new BasketItem {ProductCode = "abc123"}}};
+			_response = BasketFacade.Post_Basket(basket);
 		}
 
 		[Test]

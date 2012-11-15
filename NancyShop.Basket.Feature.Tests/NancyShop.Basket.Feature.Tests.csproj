@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasketFacade.cs" />
+    <Compile Include="ResponseExtensions.cs" />
     <Compile Include="Given_A_Basket\When_I_Get_It.cs" />
     <Compile Include="Given_Nothing\When_I_Post_A_New_Basket.cs" />
     <Compile Include="Context.cs" />
