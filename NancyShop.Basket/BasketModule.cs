@@ -6,8 +6,12 @@ namespace NancyShop.Basket
 {
 	public class BasketModule:NancyModule
 	{
+		private readonly BasketStore _basketStore;
+
 		public BasketModule()
 		{
+			_basketStore = new BasketStore();
+			
 			Post["/baskets"] = PostBasket;
 
 			Get[@"/baskets/(?<Id>\d*)"] = GetBasket;
@@ -15,14 +19,14 @@ namespace NancyShop.Basket
 
 		private dynamic GetBasket(dynamic parameters)
 		{
-			var basket = BasketStore.Get(parameters.Id);
+			var basket = _basketStore.Get(parameters.Id);
 			return basket;
 		}
 
 		private dynamic PostBasket(dynamic parameters)
 		{
 			var basket = this.Bind<Basket>();
-			BasketStore.Add(basket);
+			_basketStore.Add(basket);
 			return new Response
 				       {
 					       StatusCode = HttpStatusCode.Created, Headers = new Dictionary<string, string> {{"Location", "/baskets/" + basket.Id}}
