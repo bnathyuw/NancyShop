@@ -18,7 +18,8 @@ namespace NancyShop.Basket
 					                                           PostBasketItem(basketItemResource);
 					                                           return Negotiate.WithModel(basketItemResource)
 					                                                           .WithStatusCode(HttpStatusCode.Created)
-					                                                           .WithHeader("Location", basketItemResource.Url());
+					                                                           .WithHeader("Location", basketItemResource.Url())
+																			   .WithHeader("Links", "/baskets/" + basketItemResource.BasketId + "; rel=basket");
 				                                           };
 		}
 

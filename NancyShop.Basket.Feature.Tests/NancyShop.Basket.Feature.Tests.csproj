@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasketFacade.cs" />
+    <Compile Include="Given_A_Basket\HttpLink.cs" />
     <Compile Include="Given_A_Basket\When_I_Post_Another_Item_To_It.cs" />
     <Compile Include="ResponseExtensions.cs" />
     <Compile Include="Given_A_Basket\When_I_Get_It.cs" />

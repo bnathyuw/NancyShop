@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Nancy;
 using Nancy.Testing;
@@ -49,5 +50,16 @@ namespace NancyShop.Basket.Feature.Tests.Given_A_Basket
 			Assert.That(basketItem.BasketId, Is.EqualTo(_basketResource.Id), "basketItem.BasketId");
 		}
 
+		[Test]
+		public void Then_I_Receive_A_Link_To_Its_Basket()
+		{
+			var linksHeader = _response.Headers["Links"];
+			Assert.That(linksHeader, Is.Not.Null, "links");
+			var links = linksHeader.Split(',').Select(HttpLink.FromString).ToArray();
+			Assert.That(links.Count(), Is.AtLeast(1), "links.Count()");
+			var basketLink = links.SingleOrDefault(l => l.Rel == "basket");
+			Assert.That(basketLink != null, "basketLink != null");
+			Assert.That(basketLink.Url, Is.EqualTo(_basketLocation), "basketLink.Url");
+		}
 	}
 }
