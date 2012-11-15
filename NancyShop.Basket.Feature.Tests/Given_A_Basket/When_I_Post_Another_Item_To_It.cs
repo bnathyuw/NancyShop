@@ -32,13 +32,13 @@ namespace NancyShop.Basket.Feature.Tests.Given_A_Basket
 		[Test]
 		public void Then_I_Receive_A_Created_Code()
 		{
-			Assert.That(_response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
+			_response.AssertStatusCode(HttpStatusCode.Created);
 		}
 
 		[Test]
 		public void Then_I_Receive_Its_Location()
 		{
-			Assert.That(_response.Headers["Location"], Is.StringMatching(_basketLocation + @"/items/\d+"));
+			_response.AssertLocation(_basketLocation + @"/items/\d+");
 		}
 
 		[Test]
@@ -53,13 +53,7 @@ namespace NancyShop.Basket.Feature.Tests.Given_A_Basket
 		[Test]
 		public void Then_I_Receive_A_Link_To_Its_Basket()
 		{
-			var linksHeader = _response.Headers["Links"];
-			Assert.That(linksHeader, Is.Not.Null, "links");
-			var links = linksHeader.Split(',').Select(HttpLink.FromString).ToArray();
-			Assert.That(links.Count(), Is.AtLeast(1), "links.Count()");
-			var basketLink = links.SingleOrDefault(l => l.Rel == "basket");
-			Assert.That(basketLink != null, "basketLink != null");
-			Assert.That(basketLink.Url, Is.EqualTo(_basketLocation), "basketLink.Url");
+			_response.AssertLinkValue("basket", _basketLocation);
 		}
 	}
 }

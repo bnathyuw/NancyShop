@@ -12,19 +12,20 @@ namespace NancyShop.Basket.Feature.Tests.Given_A_Basket
 		private const string ProductCode = "abc123";
 		private BrowserResponse _response;
 		private readonly BasketResource _basketResource = new BasketResource {Items = new List<BasketItemResource> {new BasketItemResource {ProductCode = ProductCode}}};
+		private string _location;
 
 		[SetUp]
 		public void SetUp()
 		{
-			var location = BasketFacade.Post_Basket(_basketResource).GetLocation();
+			_location = BasketFacade.Post_Basket(_basketResource).GetLocation();
 
-			_response = Context.Browser.Get(location, with => with.Accept(Context.NancyShopBasketJsonContentType));
+			_response = Context.Browser.Get(_location, with => with.Accept(Context.NancyShopBasketJsonContentType));
 		}
 
 		[Test]
 		public void Then_I_Receive_An_Ok_Code()
 		{
-			Assert.That(_response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+			_response.AssertStatusCode(HttpStatusCode.OK);
 		}
 
 		[Test]

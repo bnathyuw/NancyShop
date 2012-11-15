@@ -22,13 +22,13 @@ namespace NancyShop.Basket.Feature.Tests.Given_Nothing
 		[Test]
 		public void Then_I_Receive_A_Created_Code()
 		{
-			Assert.That(_response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
+			_response.AssertStatusCode(HttpStatusCode.Created);
 		}
 
 		[Test]
 		public void Then_I_Receive_Its_Location()
 		{
-			Assert.That(_response.Headers["Location"], Is.StringMatching(@"/baskets/\d*"));
+			_response.AssertLocation(@"/baskets/\d*");
 		}
 
 		[Test]
