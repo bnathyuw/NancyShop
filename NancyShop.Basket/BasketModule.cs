@@ -8,22 +8,25 @@ namespace NancyShop.Basket
 	{
 		public BasketModule()
 		{
-			Post["/baskets"] = parameters =>
-				            {
-					            var basket = this.Bind<Basket>();
-					            BasketStore.Add(basket);
-					            return new Response
-						                   {
-							                   StatusCode = HttpStatusCode.Created,
-							                   Headers = new Dictionary<string, string> {{"Location", "/baskets/" + basket.Id}}
-						                   };
-				            };
+			Post["/baskets"] = PostBasket;
 
-			Get[@"/baskets/(?<Id>\d*)"] = parameters =>
-				                      {
-					                      var basket = BasketStore.Get(parameters.Id);
-					                      return basket;
-				                      };
+			Get[@"/baskets/(?<Id>\d*)"] = GetBasket;
+		}
+
+		private dynamic GetBasket(dynamic parameters)
+		{
+			var basket = BasketStore.Get(parameters.Id);
+			return basket;
+		}
+
+		private dynamic PostBasket(dynamic parameters)
+		{
+			var basket = this.Bind<Basket>();
+			BasketStore.Add(basket);
+			return new Response
+				       {
+					       StatusCode = HttpStatusCode.Created, Headers = new Dictionary<string, string> {{"Location", "/baskets/" + basket.Id}}
+				       };
 		}
 	}
 }
