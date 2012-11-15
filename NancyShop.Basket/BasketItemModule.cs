@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Nancy;
+﻿using Nancy;
 using Nancy.ModelBinding;
 
 namespace NancyShop.Basket
@@ -8,18 +7,14 @@ namespace NancyShop.Basket
 	{
 		public BasketItemModule()
 		{
-			Post[@"/baskets/(?<BasketId>\d+)/items"] = PostBasketItem;
-		}
-
-		private dynamic PostBasketItem(dynamic arg)
-		{
-			var basketId = arg.BasketId;
-			var basketItemResource = this.Bind<BasketItemResource>();
-			return new Response
-				       {
-					       StatusCode = HttpStatusCode.Created,
-						   Headers = new Dictionary<string, string>{{"Location", basketItemResource.Url()}}
-				       };
+			Post[@"/baskets/(?<BasketId>\d+)/items"] = parameters =>
+				                                           {
+					                                           var basketId = parameters.BasketId;
+					                                           var basketItemResource = this.Bind<BasketItemResource>();
+					                                           return Negotiate.WithModel(basketItemResource)
+					                                                           .WithStatusCode(HttpStatusCode.Created)
+					                                                           .WithHeader("Location", basketItemResource.Url());
+				                                           };
 		}
 	}
 }

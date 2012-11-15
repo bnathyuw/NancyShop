@@ -16,7 +16,13 @@ namespace NancyShop.Basket
 			_basketStore = basketStore;
 			_basketItemStore = basketItemStore;
 
-			Post["/baskets"] = parameters => PostBasket(this.Bind<BasketResource>());
+			Post["/baskets"] = parameters =>
+				                   {
+					                   var basketResource = PostBasket(this.Bind<BasketResource>());
+					                   return Negotiate.WithModel(basketResource)
+					                                   .WithStatusCode(HttpStatusCode.Created)
+					                                   .WithHeader("Location", basketResource.Url());
+				                   };
 
 			Get[@"/baskets/(?<Id>\d*)"] = parameters => GetBasket(parameters.Id);
 		}
@@ -30,7 +36,7 @@ namespace NancyShop.Basket
 			return basketResource;
 		}
 
-		private Response PostBasket(BasketResource basketResource)
+		private BasketResource PostBasket(BasketResource basketResource)
 		{
 			var basket = basketResource.ToBasket();
 			_basketStore.Add(basket);
@@ -41,11 +47,7 @@ namespace NancyShop.Basket
 				var basketItem = basketItemResource.ToBasketItem();
 				_basketItemStore.Add(basketItem);
 			}
-			return new Response
-				       {
-					       StatusCode = HttpStatusCode.Created, 
-						   Headers = new Dictionary<string, string> {{"Location", basketResource.Url()}}
-				       };
+			return basketResource;
 		}
 	}
 }
