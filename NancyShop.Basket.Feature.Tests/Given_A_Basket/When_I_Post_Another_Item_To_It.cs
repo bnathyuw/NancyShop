@@ -16,9 +16,9 @@ namespace NancyShop.Basket.Feature.Tests.Given_A_Basket
 		[SetUp]
 		public void SetUp()
 		{
-			_basketResource = new BasketResource {Items = new List<BasketItemResource> {new BasketItemResource {ProductCode = "abc123"}}};
-
-			_basketLocation = BasketFacade.Post_Basket(_basketResource).GetLocation();
+			var response = BasketFacade.Post_Basket(new BasketResource {Items = new List<BasketItemResource> {new BasketItemResource {ProductCode = "abc123"}}});
+			_basketResource = response.Body.DeserializeJson<BasketResource>();
+			_basketLocation = response.GetLocation();
 
 			_response = Context.Browser.Post(_basketLocation + "/items", with =>
 				                                                      {
@@ -48,5 +48,6 @@ namespace NancyShop.Basket.Feature.Tests.Given_A_Basket
 			Assert.That(basketItem.ProductCode, Is.EqualTo(ProductCode), "basketItem.ProductCode");
 			Assert.That(basketItem.BasketId, Is.EqualTo(_basketResource.Id), "basketItem.BasketId");
 		}
+
 	}
 }
