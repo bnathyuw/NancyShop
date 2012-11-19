@@ -68,10 +68,14 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasketItemLogic.cs" />
+    <Compile Include="BasketLogic.cs" />
     <Compile Include="BasketResource.cs" />
     <Compile Include="BasketItemResource.cs" />
     <Compile Include="BasketItemModule.cs" />
     <Compile Include="BasketModule.cs" />
+    <Compile Include="IBasketItemLogic.cs" />
+    <Compile Include="IBasketLogic.cs" />
     <Compile Include="LinkExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
