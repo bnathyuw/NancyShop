@@ -6,9 +6,9 @@ namespace NancyShop.Basket
 {
 	public class BasketModule:NancyModule
 	{
-		private readonly BasketLogic _basketLogic;
+		private readonly IBasketLogic _basketLogic;
 
-		public BasketModule(BasketLogic basketLogic)
+		public BasketModule(IBasketLogic basketLogic)
 		{
 			_basketLogic = basketLogic;
 

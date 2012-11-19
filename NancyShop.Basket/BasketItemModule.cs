@@ -5,9 +5,9 @@ namespace NancyShop.Basket
 {
 	public class BasketItemModule:NancyModule
 	{
-		private readonly BasketItemLogic _basketItemLogic;
+		private readonly IBasketItemLogic _basketItemLogic;
 
-		public BasketItemModule(BasketItemLogic basketItemLogic)
+		public BasketItemModule(IBasketItemLogic basketItemLogic)
 		{
 			_basketItemLogic = basketItemLogic;
 			Post[@"/baskets/(?<BasketId>\d+)/items"] = HandlePostBasketItem;

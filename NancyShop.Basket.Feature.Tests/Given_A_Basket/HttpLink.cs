@@ -5,8 +5,8 @@ namespace NancyShop.Basket.Feature.Tests.Given_A_Basket
 {
 	public class HttpLink
 	{
-		public string Url { get; set; }
-		public string Rel { get; set; }
+		public string Url { get; private set; }
+		public string Rel { get; private set; }
 
 		public static HttpLink FromString(string linkString)
 		{

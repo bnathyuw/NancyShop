@@ -1,7 +1,8 @@
-using NancyShop.Basket;
-
-public interface IBasketLogic
+namespace NancyShop.Basket
 {
-	BasketResource PostBasket(BasketResource basketResource);
-	BasketResource GetBasket(int basketId);
+	public interface IBasketLogic
+	{
+		BasketResource PostBasket(BasketResource basketResource);
+		BasketResource GetBasket(int basketId);
+	}
 }
