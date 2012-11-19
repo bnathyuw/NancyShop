@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Nancy;
 using Nancy.ModelBinding;
 using NancyShop.Basket.Domain;
@@ -16,30 +15,26 @@ namespace NancyShop.Basket
 			_basketStore = basketStore;
 			_basketItemStore = basketItemStore;
 
-			Post["/baskets"] = parameters =>
-				                   {
-					                   var basketResource = PostBasket(this.Bind<BasketResource>());
-					                   return Negotiate.WithModel(basketResource)
-					                                   .WithStatusCode(HttpStatusCode.Created)
-					                                   .WithHeader("Location", basketResource.Url());
-				                   };
+			Post["/baskets"] = HandlePostBasket;
 
-			Get[@"/baskets/(?<Id>\d*)"] = parameters =>
-				                              {
-					                              BasketResource basket = GetBasket(parameters.Id);
-					                              return Negotiate.WithModel(basket)
-					                                              .WithStatusCode(HttpStatusCode.OK)
-					                                              .WithHeader("Links", string.Join(",", basket.Items.Select(bi => bi.Url() + "; rel=basketitem")));
-				                              };
+			Get[@"/baskets/(?<Id>\d*)"] = HandleGetBasket;
 		}
 
-		private BasketResource GetBasket(int basketId)
+		private dynamic HandlePostBasket(dynamic parameters)
 		{
-			var basket = _basketStore.Get(basketId);
-			var basketResource = BasketResource.FromBasket(basket);
-			var basketItems = _basketItemStore.GetForBasket(basketId).Select(BasketItemResource.FromBasketItem);
-			basketResource.Items = basketItems;
-			return basketResource;
+			var request = this.Bind<BasketResource>();
+			var response = PostBasket(request);
+			return Negotiate.WithModel(response)
+			                .WithStatusCode(HttpStatusCode.Created)
+			                .WithHeader("Location", response.Url());
+		}
+
+		private dynamic HandleGetBasket(dynamic parameters)
+		{
+			BasketResource basket = GetBasket(parameters.Id);
+			return Negotiate.WithModel(basket)
+			                .WithStatusCode(HttpStatusCode.OK)
+			                .WithHeader("Links", string.Join(",", basket.Items.Select(bi => bi.Url() + "; rel=basketitem")));
 		}
 
 		private BasketResource PostBasket(BasketResource basketResource)
@@ -53,6 +48,15 @@ namespace NancyShop.Basket
 				var basketItem = basketItemResource.ToBasketItem();
 				_basketItemStore.Add(basketItem);
 			}
+			return basketResource;
+		}
+
+		private BasketResource GetBasket(int basketId)
+		{
+			var basket = _basketStore.Get(basketId);
+			var basketResource = BasketResource.FromBasket(basket);
+			var basketItems = _basketItemStore.GetForBasket(basketId).Select(BasketItemResource.FromBasketItem);
+			basketResource.Items = basketItems;
 			return basketResource;
 		}
 	}
