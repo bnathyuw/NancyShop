@@ -74,6 +74,12 @@
     <Compile Include="BasketItemResource.cs" />
     <Compile Include="BasketItemModule.cs" />
     <Compile Include="BasketModule.cs" />
+    <Compile Include="Domain\Basket.cs" />
+    <Compile Include="Domain\BasketItem.cs" />
+    <Compile Include="Domain\IBasketItemStore.cs" />
+    <Compile Include="Domain\IBasketStore.cs" />
+    <Compile Include="Domain\InMemoryBasketItemStore.cs" />
+    <Compile Include="Domain\InMemoryBasketStore.cs" />
     <Compile Include="IBasketItemLogic.cs" />
     <Compile Include="IBasketLogic.cs" />
     <Compile Include="LinkExtensions.cs" />
@@ -87,12 +93,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NancyShop.Basket.Domain\NancyShop.Basket.Domain.csproj">
-      <Project>{9A1955D9-E54B-463A-827F-099668394411}</Project>
-      <Name>NancyShop.Basket.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
