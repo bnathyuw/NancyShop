@@ -5,3 +5,4 @@ packages
 *.user
 _ReSharper.*
 *.ncrunch*
+_NCrunch_*
