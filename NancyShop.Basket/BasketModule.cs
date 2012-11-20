@@ -26,7 +26,7 @@ namespace NancyShop.Basket
 			                .WithHeader("Location", response.Url());
 		}
 
-		private dynamic HandleGetBasket(dynamic parameters)
+		internal dynamic HandleGetBasket(dynamic parameters)
 		{
 			BasketResource basket = _basketLogic.GetBasket(parameters.Id);
 			return Negotiate.WithModel(basket)
