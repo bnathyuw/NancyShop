@@ -7,20 +7,29 @@ namespace NancyShop.Basket.Unit.Tests
 	[TestFixture]
 	public class BasketLogicTests
 	{
+		private IBasketStore _basketStore;
+		private IBasketItemStore _basketItemStore;
+		private BasketLogic _basketLogic;
+
+		[SetUp]
+		public void SetUp()
+		{
+			_basketStore = MockRepository.GenerateStub<IBasketStore>();
+			_basketItemStore = MockRepository.GenerateStub<IBasketItemStore>();
+			_basketLogic = new BasketLogic(_basketStore, _basketItemStore);
+		}
+
 		[Test]
 		public void Get_Basket_Retrieves_Basket_From_Store()
 		{
-			var basketStore = MockRepository.GenerateStub<IBasketStore>();
 			const int basketId = 1;
 			var basket = new Domain.Basket();
-			basketStore.Stub(bs => bs.Get(basketId)).Return(basket);
-			var basketItemStore = MockRepository.GenerateStub<IBasketItemStore>();
-			basketItemStore.Stub(bis => bis.GetForBasket(basketId)).Return(new BasketItem[]{});
-			var basketLogic = new BasketLogic(basketStore, basketItemStore);
+			_basketStore.Stub(bs => bs.Get(basketId)).Return(basket);
+			_basketItemStore.Stub(bis => bis.GetForBasket(basketId)).Return(new BasketItem[]{});
 
-			basketLogic.GetBasket(basketId);
+			_basketLogic.GetBasket(basketId);
 
-			basketStore.AssertWasCalled(bs => bs.Get(basketId));
+			_basketStore.AssertWasCalled(bs => bs.Get(basketId));
 		}
 	}
 }
