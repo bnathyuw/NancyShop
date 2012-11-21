@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using NancyShop.Basket.Domain;
 using Rhino.Mocks;
 
@@ -30,6 +31,38 @@ namespace NancyShop.Basket.Unit.Tests
 			_basketLogic.GetBasket(basketId);
 
 			_basketStore.AssertWasCalled(bs => bs.Get(basketId));
+		}
+
+		[Test]
+		public void Post_Basket_Adds_Basket_To_Store()
+		{
+			var basketResource = new BasketResource {Items = new BasketItemResource[]{}};
+
+			_basketLogic.PostBasket(basketResource);
+
+			_basketStore.AssertWasCalled(bs => bs.Add(Arg<Domain.Basket>.Is.Anything));
+		}
+
+		[Test]
+		public void Post_Basket_Adds_All_Basket_Items_To_Store()
+		{
+			var basketResource = new BasketResource {Items = new[] {new BasketItemResource(), new BasketItemResource(), new BasketItemResource()}};
+
+			_basketLogic.PostBasket(basketResource);
+
+			_basketItemStore.AssertWasCalled(bis => bis.Add(Arg<BasketItem>.Is.Anything), x => x.Repeat.Times(3));
+		}
+
+		[Test]
+		public void Post_Basket_Saves_Basket_Items_With_Correct_Basket_Id()
+		{
+			const int basketId = 1234;
+			var basketResource = new BasketResource {Items = new[] {new BasketItemResource {ProductCode = "abc123"}}};
+			_basketStore.Stub(bs => bs.Add(Arg<Domain.Basket>.Is.Anything)).Do(new Action<Domain.Basket>(b => { b.Id = basketId; }));
+
+			_basketLogic.PostBasket(basketResource);
+
+			_basketItemStore.AssertWasCalled(bis => bis.Add(Arg<BasketItem>.Matches(bi => bi.BasketId == basketId)));
 		}
 	}
 }
